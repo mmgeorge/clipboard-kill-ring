@@ -2,7 +2,7 @@
   "name": "clipboard-kill-ring",
   "displayName": "Clipboard Kill Ring",
   "description": "",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.87.0"
   },

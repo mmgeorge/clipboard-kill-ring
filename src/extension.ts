@@ -197,7 +197,7 @@ async function showHistory(editor: TextEditor): Promise<void> {
     return; 
   }
   
-  const itemIndex = itemTrimmed.indexOf(itemTrimmed);;
+  const itemIndex = itemsTrimmed.indexOf(itemTrimmed);;
   const item = items[itemIndex];
   
   yankText(editor, item);

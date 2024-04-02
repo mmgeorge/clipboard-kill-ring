@@ -1,0 +1,91 @@
+{
+  "name": "clipboard-kill-ring",
+  "displayName": "Clipboard Kill Ring",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.87.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Clipboard Kill Ring",
+      "properties": {
+        "clipboardKillRing.historySize": {
+          "type": "number",
+          "default": 10,
+          "description": "Max kill ring history size"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "clipboard-kill-ring.kill-line",
+        "title": "Clipboard Kill Ring: Kill Line"
+      },
+      {
+        "command": "clipboard-kill-ring.kill-line-append",
+        "title": "Clipboard Kill Ring: Kill Line Append"
+      },
+      {
+        "command": "clipboard-kill-ring.kill-line-left",
+        "title": "Clipboard Kill Ring: Kill Line Left"
+      },
+      {
+        "command": "clipboard-kill-ring.kill-line-right",
+        "title": "Clipboard Kill Ring: Kill Line Right"
+      },
+      {
+        "command": "clipboard-kill-ring.kill-word",
+        "title": "Clipboard Kill Ring: Kill Word"
+      },
+      {
+        "command": "clipboard-kill-ring.kill-word-append",
+        "title": "Clipboard Kill Ring: Kill Word Append"
+      },
+      {
+        "command": "clipboard-kill-ring.kill-region",
+        "title": "Clipboard Kill Ring: Kill Region"
+      },
+      {
+        "command": "clipboard-kill-ring.kill-region-append",
+        "title": "Clipboard Kill Ring: Kill Region Append"
+      },
+      {
+        "command": "clipboard-kill-ring.save-region",
+        "title": "Clipboard Kill Ring: Save Region"
+      },
+      {
+        "command": "clipboard-kill-ring.show-history",
+        "title": "Clipboard Kill Ring: Show History"
+      },
+      {
+        "command": "clipboard-kill-ring.yank",
+        "title": "Clipboard Kill Ring: Yank Last"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.87.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@typescript-eslint/parser": "^7.4.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.3.3",
+    "@vscode/test-cli": "^0.0.8",
+    "@vscode/test-electron": "^2.3.9"
+  }
+}

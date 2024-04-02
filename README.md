@@ -1,6 +1,6 @@
 # Clipboard Kill Ring
 
-Provides a clipboard history / kill ring implementation for Visual Studio Code. Killing / saving regions will modify the clipboard. 
+Provides a clipboard history and kill ring implementation for Visual Studio Code. Killing and saving regions will modify the clipboard. 
 
 ### Commands
 |Command | Desc |

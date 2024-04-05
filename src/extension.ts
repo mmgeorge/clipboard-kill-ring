@@ -1,4 +1,4 @@
-import { commands, Range, type ExtensionContext, type TextEditor, Position, Uri, workspace, env, window, Selection } from 'vscode';
+import { commands, Range, type ExtensionContext, type TextEditor, Position, Uri, workspace, env, window, Selection, TextEditorEdit } from 'vscode';
 import { Ring } from './ring';
 
 let lastPosition: Position | null = null; 
@@ -6,6 +6,8 @@ let lastUri: string | null;
 
 export function activate(context: ExtensionContext) {
   let registered = [
+    commands.registerTextEditorCommand("clipboard-kill-ring.save-cursor", saveCursor), 
+    commands.registerTextEditorCommand("clipboard-kill-ring.restore-cursor", restoreCursor), 
     commands.registerTextEditorCommand("clipboard-kill-ring.kill-line", killLine), 
     commands.registerTextEditorCommand("clipboard-kill-ring.kill-line-append", killLineAppend), 
     commands.registerTextEditorCommand("clipboard-kill-ring.kill-line-left", killLineLeft), 
@@ -14,8 +16,8 @@ export function activate(context: ExtensionContext) {
     commands.registerTextEditorCommand("clipboard-kill-ring.kill-word-append", killWordAppend), 
     commands.registerTextEditorCommand("clipboard-kill-ring.kill-region", killRegion), 
     commands.registerTextEditorCommand("clipboard-kill-ring.kill-region-append", killRegionAppend), 
-    commands.registerTextEditorCommand("clipboard-kill-ring.save-region", saveRegion), 
-    commands.registerTextEditorCommand("clipboard-kill-ring.save-region-cancel-selection-start", saveRegionCancelSelectionStart), 
+    commands.registerTextEditorCommand("clipboard-kill-ring.save-region", (editor) => saveRegion(editor)), 
+    commands.registerTextEditorCommand("clipboard-kill-ring.save-region-cancel-selection-start", editor => saveRegionCancelSelectionStart(editor)), 
     commands.registerTextEditorCommand("clipboard-kill-ring.cancel-selection-start", cancelSelectionStart), 
     commands.registerTextEditorCommand("clipboard-kill-ring.show-history", showHistory), 
     commands.registerTextEditorCommand("clipboard-kill-ring.yank", (editor) => yankText(editor)), 
@@ -25,6 +27,20 @@ export function activate(context: ExtensionContext) {
 }
 
 export function deactivate() { }
+
+let savedCursor: Position | null = null; 
+function saveCursor(editor: TextEditor): void { 
+  savedCursor = editor.selection.end; 
+  commands.executeCommand("setContext", "hasClipboardKillRingSavedCursor", true);
+}
+
+function restoreCursor(editor: TextEditor): void {
+  if (savedCursor) {
+    editor.selection = new Selection(savedCursor, savedCursor);
+    savedCursor = null; 
+    commands.executeCommand("setContext", "hasClipboardKillRingSavedCursor", false);
+  }
+}
 
 function killWord(editor: TextEditor): void {
   const position = editor.selection.active; 

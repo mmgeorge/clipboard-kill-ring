@@ -2,7 +2,7 @@
   "name": "clipboard-kill-ring",
   "displayName": "Clipboard Kill Ring",
   "description": "",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "engines": {
     "vscode": "^1.87.0"
   },
@@ -59,6 +59,14 @@
       {
         "command": "clipboard-kill-ring.kill-region-append",
         "title": "Clipboard Kill Ring: Kill Region Append"
+      },
+      {
+        "command": "clipboard-kill-ring.save-cursor",
+        "title": "Clipboard Kill Ring: Save Cursor"
+      },
+      {
+        "command": "clipboard-kill-ring.restore-cursor",
+        "title": "Clipboard Kill Ring: Restore Cursor"
       },
       {
         "command": "clipboard-kill-ring.save-region",

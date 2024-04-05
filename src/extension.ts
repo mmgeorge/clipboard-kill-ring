@@ -1,4 +1,4 @@
-import { commands, Range, type ExtensionContext, type TextEditor, Position, Uri, workspace, env, window } from 'vscode';
+import { commands, Range, type ExtensionContext, type TextEditor, Position, Uri, workspace, env, window, Selection } from 'vscode';
 import { Ring } from './ring';
 
 let lastPosition: Position | null = null; 
@@ -15,6 +15,8 @@ export function activate(context: ExtensionContext) {
     commands.registerTextEditorCommand("clipboard-kill-ring.kill-region", killRegion), 
     commands.registerTextEditorCommand("clipboard-kill-ring.kill-region-append", killRegionAppend), 
     commands.registerTextEditorCommand("clipboard-kill-ring.save-region", saveRegion), 
+    commands.registerTextEditorCommand("clipboard-kill-ring.save-region-cancel-selection-start", saveRegionCancelSelectionStart), 
+    commands.registerTextEditorCommand("clipboard-kill-ring.cancel-selection-start", cancelSelectionStart), 
     commands.registerTextEditorCommand("clipboard-kill-ring.show-history", showHistory), 
     commands.registerTextEditorCommand("clipboard-kill-ring.yank", (editor) => yankText(editor)), 
   ]; 
@@ -173,6 +175,30 @@ function saveRegion(editor: TextEditor): void {
   
   Ring.Instance.insert(text);
   
+  lastPosition = null; 
+  lastUri = null; 
+}
+
+function saveRegionCancelSelectionStart(editor: TextEditor): void {
+  const start = editor.selection.start; 
+  const end = editor.selection.end; 
+  const uri = editor.document.uri.toString(); 
+  const range = new Range(start, end); 
+  const text = editor.document.getText(range);
+  
+  Ring.Instance.insert(text);
+
+  // Deselect, returning cursor position to the start
+  editor.selection = new Selection(start, start); 
+  
+  lastPosition = null; 
+  lastUri = null; 
+}
+
+function cancelSelectionStart(editor: TextEditor): void {
+  const start = editor.selection.start; 
+  // Deselect, returning cursor position to the start
+  editor.selection = new Selection(start, start); 
   lastPosition = null; 
   lastUri = null; 
 }

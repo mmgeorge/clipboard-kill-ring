@@ -2,7 +2,7 @@
   "name": "clipboard-kill-ring",
   "displayName": "Clipboard Kill Ring",
   "description": "",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "engines": {
     "vscode": "^1.87.0"
   },
@@ -14,7 +14,7 @@
   "publisher": "mmgeorge",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mmgeorge/clipboard-kill-ring"
+    "url": "https://github.com/mmgeorge/vscode-clipboard-kill-ring"
   },
   "contributes": {
     "configuration": {
@@ -63,6 +63,14 @@
       {
         "command": "clipboard-kill-ring.save-region",
         "title": "Clipboard Kill Ring: Save Region"
+      },
+      {
+        "command": "clipboard-kill-ring.save-region-cancel-selection-start",
+        "title": "Clipboard Kill Ring: Save Region Cancel Selection Start"
+      },
+      {
+        "command": "clipboard-kill-ring.cancel-selection-start",
+        "title": "Clipboard Kill Ring: Cancel Selection Start"
       },
       {
         "command": "clipboard-kill-ring.show-history",

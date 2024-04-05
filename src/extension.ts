@@ -29,14 +29,24 @@ export function activate(context: ExtensionContext) {
 export function deactivate() { }
 
 let savedCursor: Position | null = null; 
+let savedVisibleRange: Range | null = null; 
 function saveCursor(editor: TextEditor): void { 
   savedCursor = editor.selection.end; 
+
+  if (editor.visibleRanges.length) {
+    savedVisibleRange = editor.visibleRanges[0]; 
+  }
   commands.executeCommand("setContext", "hasClipboardKillRingSavedCursor", true);
 }
 
 function restoreCursor(editor: TextEditor): void {
   if (savedCursor) {
     editor.selection = new Selection(savedCursor, savedCursor);
+    
+    if (savedVisibleRange) {
+      editor.revealRange(savedVisibleRange);
+    }
+    savedVisibleRange = null; 
     savedCursor = null; 
     commands.executeCommand("setContext", "hasClipboardKillRingSavedCursor", false);
   }

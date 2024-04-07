@@ -2,7 +2,8 @@
   "name": "clipboard-kill-ring",
   "displayName": "Clipboard Kill Ring",
   "description": "",
-  "version": "1.1.1",
+  "icon": "images/OIG4.mdRb32z2rfKFD.jpg",
+  "version": "1.1.2",
   "engines": {
     "vscode": "^1.87.0"
   },
